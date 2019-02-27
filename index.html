@@ -34,35 +34,13 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-      preloader.classList.remove('hidden');
-      let xhr = new XMLHttpRequest();
-      xhr.addEventListener('load', onLoad)
-      xhr.open(
-        "GET", 'components/email-tab.html', true
-      );
-      xhr.send()
-      function onLoad() {
-        divContent.innerHTML = xhr.responseText;
-        preloader.classList.add('hidden')
-      }
+      xhrLoad('components/email-tab.html');
     })
 
-    function onClick(event) {
-      
+    function onClick() {
       event.preventDefault();
       this.classList.add('active');
-      preloader.classList.remove('hidden');
-      let xhr = new XMLHttpRequest();
-      xhr.addEventListener('load', onLoad)
-      xhr.open(
-        "GET", this.href, true
-      );
-      xhr.send()
-
-      function onLoad() {
-        divContent.innerHTML = xhr.responseText;
-        preloader.classList.add('hidden')
-      }
+      xhrLoad(event.target.href)
     }
 
     function current() {
@@ -71,6 +49,21 @@
       }
     }
 
+    function xhrLoad(path) {
+      preloader.classList.remove('hidden');
+
+      let xhr = new XMLHttpRequest();
+      xhr.addEventListener('load', onLoad)
+      xhr.open(
+        "GET", path, true
+      );
+      xhr.send();
+
+      function onLoad() {
+        divContent.innerHTML = xhr.responseText;
+        preloader.classList.add('hidden')
+      }
+    }
   </script>
 </body>
 
