@@ -29,7 +29,6 @@
     let preloader = document.getElementById('preloader');
 
     for (let tab of tabs) {
-      tab.addEventListener('click', current);
       tab.addEventListener('click', onClick);
     }
 
@@ -39,15 +38,15 @@
 
     function onClick() {
       event.preventDefault();
-      this.classList.add('active');
-      xhrLoad(event.target.href)
-    }
 
-    function current() {
       for (let tab of tabs) {
         tab.classList.remove('active');
       }
+
+      event.target.classList.add('active');
+      xhrLoad(event.target.href);
     }
+
 
     function xhrLoad(path) {
       preloader.classList.remove('hidden');
@@ -64,6 +63,7 @@
         preloader.classList.add('hidden')
       }
     }
+
   </script>
 </body>
 
